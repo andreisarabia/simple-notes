@@ -1,10 +1,31 @@
-.App {
-  width: 70%;
+#app-wrapper {
+  height: 100vh;
+}
+
+.app {
+  width: 60%;
   margin: auto;
 }
 
+.grayed-out {
+  background: whitesmoke;
+}
+
 input {
-  font-size: 1rem;
+  padding: 0.35rem;
+}
+
+input,
+textarea {
+  font-size: 1.3rem;
+  border: 1px solid black;
+}
+
+button {
+  padding: 0.5rem;
+  background-color: inherit;
+  border: 1px solid black;
+  border-radius: 0.3rem;
 }
 
 .display-none {
@@ -31,13 +52,6 @@ input {
 .note-info {
   border-bottom: 1px solid black;
   margin: 1rem 0;
-}
-
-.App button {
-  padding: 0.5rem;
-  background-color: inherit;
-  border: 1px solid black;
-  border-radius: 0.3rem;
 }
 
 .note-meta {
@@ -88,5 +102,48 @@ input {
 }
 
 .modal-wrapper {
-  display: block;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+.modal-center {
+  background: white;
+  width: 50%;
+  margin-left: 4rem;
+  margin-top: 2.5rem;
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+#add-note-grid > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+#add-note-grid label {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+#tag-checkboxes {
+  border: 1px solid gray;
+}
+
+#tag-checkboxes > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.5rem;
+}
+
+#tag-checkboxes input:checked + label {
+  color: #3541fdd4;
+}
+
+#add-note-grid textarea {
+  resize: none;
 }

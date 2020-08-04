@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Tags = () => {
-  const [tags, setTags] = useState([
-    { id: 1, name: 'personal' },
-    { id: 2, name: 'politics' },
-  ]);
-
+const Tags = ({ tags }) => {
   return (
     <>
       <div id='add-tag-inputs'>
