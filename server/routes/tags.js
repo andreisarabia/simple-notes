@@ -12,6 +12,19 @@ async function getAllTags(ctx) {
   };
 }
 
+async function deleteTag(ctx) {
+  const { id } = ctx.params;
+
+  if (!id || Number.isNaN(+id)) ctx.throw('No valid tag id provided', 400);
+
+  await Note.deleteTag(+id);
+
+  ctx.body = {
+    msg: 'ok',
+  };
+}
+
 router.get('/list', getAllTags);
+router.delete('/:id', deleteTag);
 
 module.exports = router;

@@ -124,7 +124,9 @@ module.exports = class Note extends Model {
 
     const { insertId } = await Model.query(noteSql, [title, description]);
 
-    return this.findById(insertId);
+    const note = await this.findById(insertId);
+
+    return note;
   }
 
   /**
@@ -161,6 +163,8 @@ module.exports = class Note extends Model {
       Model.query(tagsSql, tags),
     ]);
 
+    // the lone `?` means it'll be a bulk insert
+    // see https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js
     const notesToTagsSql = `
       INSERT INTO ${this.notesToTagsTableName} (note_id, tag_id)
       VALUES ?
@@ -170,6 +174,27 @@ module.exports = class Note extends Model {
 
     await Model.query(notesToTagsSql, [notesToTagsValues]);
 
-    return this.findById(insertId);
+    const note = await this.findById(insertId);
+
+    return note;
+  }
+
+  /**
+   * @param {number} id
+   */
+  static async deleteTag(id) {
+    const deleteReferencesSql = `
+      DELETE FROM ${this.notesToTagsTableName}
+      WHERE tag_id = ?
+    `;
+
+    await Model.query(deleteReferencesSql, [id]);
+
+    const deleteTagSql = `
+      DELETE FROM ${this.tagsTableName}
+      WHERE id = ?
+    `;
+
+    await Model.query(deleteTagSql, [id]);
   }
 };
