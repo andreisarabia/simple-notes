@@ -20,6 +20,22 @@ const App = () => {
   const [tags, setTags] = useState([]);
   const [notes, setNotes] = useState([]);
 
+  const appWrapperClass = modalIsDisplayed ? 'grayed-out' : '';
+  const notesHeaderClass = focusedSection === 'notes' ? '' : 'unfocused-header';
+  const tagsHeaderClass = focusedSection === 'tags' ? '' : 'unfocused-header';
+  const modalClassName = modalIsDisplayed ? 'modal-center' : 'display-none';
+  const notesSectionStyle = {
+    display: focusedSection === 'notes' ? 'grid' : 'none',
+  };
+  const tagsSectionStyle = {
+    display: focusedSection === 'tags' ? 'grid' : 'none',
+  };
+
+  const handleModalAction = newNote => {
+    if (newNote) setNotes([newNote, ...notes]);
+    setModalIsDisplayed(false);
+  };
+
   useEffect(() => {
     fetchInitialData().then(({ notes, tags }) => {
       setNotes(notes);
@@ -28,17 +44,17 @@ const App = () => {
   }, []);
 
   return (
-    <div id='app-wrapper' className={modalIsDisplayed ? 'grayed-out' : ''}>
+    <div id='app-wrapper' className={appWrapperClass}>
       <div className='app'>
         <div id='app-headers'>
           <h2
-            className={focusedSection === 'notes' ? '' : 'unfocused-header'}
+            className={notesHeaderClass}
             onClick={() => setFocusedSection('notes')}
           >
             Notes
           </h2>
           <h2
-            className={focusedSection === 'tags' ? '' : 'unfocused-header'}
+            className={tagsHeaderClass}
             onClick={() => setFocusedSection('tags')}
           >
             Tags
@@ -48,7 +64,7 @@ const App = () => {
         <section
           className='app-grid'
           id='notes-section'
-          style={{ display: focusedSection === 'notes' ? 'grid' : 'none' }}
+          style={notesSectionStyle}
         >
           <Notes notes={notes} addNote={() => setModalIsDisplayed(true)} />
         </section>
@@ -56,21 +72,19 @@ const App = () => {
         <section
           className='app-grid'
           id='tags-section'
-          style={{ display: focusedSection === 'tags' ? 'grid' : 'none' }}
+          style={tagsSectionStyle}
         >
-          <Tags tags={tags} />
+          <Tags
+            tags={tags}
+            onAddTag={tag => setTags([tag, ...tags])}
+            onDeleteTag={tagId => setTags(tags.filter(tag => tag.id !== tagId))}
+          />
         </section>
       </div>
 
       <div className='modal-wrapper'>
-        <div className={modalIsDisplayed ? 'modal-center' : 'display-none'}>
-          <AddNoteModal
-            onSubmit={newNote => {
-              if (newNote) setNotes([newNote, ...notes]);
-              setModalIsDisplayed(false);
-            }}
-            tags={tags}
-          />
+        <div className={modalClassName}>
+          <AddNoteModal onSubmit={handleModalAction} tags={tags} />
         </div>
       </div>
     </div>

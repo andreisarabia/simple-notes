@@ -180,6 +180,25 @@ module.exports = class Note extends Model {
   }
 
   /**
+   * @param {string} name
+   *
+   * @returns {Promise<{id: number; name: string;}>}
+   */
+  static async createTag(name) {
+    const insertTagSql = `
+      INSERT INTO ${this.tagsTableName} (name)
+      VALUES (?)
+    `;
+
+    const { insertId } = await Model.query(insertTagSql, [name]);
+
+    return {
+      id: insertId,
+      name,
+    };
+  }
+
+  /**
    * @param {number} id
    */
   static async deleteTag(id) {

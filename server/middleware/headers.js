@@ -14,6 +14,7 @@ module.exports = isProduction => {
       ...defaultHeaders,
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'content-type',
+      'Access-Control-Allow-Methods': 'GET, POST, DELETE',
     };
   }
 

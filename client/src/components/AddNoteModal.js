@@ -5,8 +5,9 @@ const AddNoteModal = ({ onSubmit, tags }) => {
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
 
-  const handleCancel = e => {
+  const handleCancel = async e => {
     e.preventDefault();
+
     setNewTitle('');
     setNewDescription('');
     setChosenTags([]);
