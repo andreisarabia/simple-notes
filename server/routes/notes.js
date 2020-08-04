@@ -10,7 +10,7 @@ async function getNoteInfo(ctx) {
   const note = await Note.findById(id);
 
   ctx.body = {
-    note: note.props,
+    note: note.data,
   };
 }
 
@@ -18,12 +18,14 @@ async function getAllNotes(ctx) {
   const notes = await Note.findAll();
 
   ctx.body = {
-    notes: notes.map(note => note.props),
+    notes: notes.map(note => note.data),
   };
 }
 
 async function createNote(ctx) {
   const { title, description, tags } = ctx.request.body;
+
+  const note = await Note.createFrom({ title, description, tags });
 }
 
 const router = new KoaRouter({ prefix: '/api/note' });
