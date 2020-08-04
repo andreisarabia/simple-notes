@@ -6,7 +6,8 @@
   "scripts": {
     "bootstrap:packages": "cross-env npm i && cd client && npm i",
     "bootstrap:db": "node server/database/bootstrap.js",
-    "dev:server": "node_modules/.bin/nodemon server/index.js"
+    "dev:server": "node_modules/.bin/nodemon server/index.js",
+    "dev:react": "cd client && npm run start"
   },
   "keywords": [],
   "author": "",

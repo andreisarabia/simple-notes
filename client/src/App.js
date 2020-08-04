@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import Notes from './components/Notes';
+import Tags from './components/Tags';
+
 import './App.css';
 
-function App() {
+const App = () => {
+  const [focusedSection, setFocusedSection] = useState('notes');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className='App'>
+      <div id='app-headers'>
+        <h2
+          className={focusedSection === 'notes' ? '' : 'unfocused-header'}
+          onClick={() => setFocusedSection('notes')}
         >
-          Learn React
-        </a>
-      </header>
+          Notes
+        </h2>
+        <h2
+          className={focusedSection === 'tags' ? '' : 'unfocused-header'}
+          onClick={() => setFocusedSection('tags')}
+        >
+          Tags
+        </h2>
+      </div>
+
+      <section
+        className='app-grid'
+        id='notes-section'
+        style={{ display: focusedSection === 'notes' ? 'grid' : 'none' }}
+      >
+        <Notes />
+      </section>
+
+      <section
+        className='app-grid'
+        id='tags-section'
+        style={{ display: focusedSection === 'tags' ? 'grid' : 'none' }}
+      >
+        <Tags />
+      </section>
     </div>
   );
-}
+};
 
 export default App;
