@@ -26,6 +26,10 @@ async function createNote(ctx) {
   const { title, description, tags } = ctx.request.body;
 
   const note = await Note.createFrom({ title, description, tags });
+
+  ctx.body = {
+    note: note.data,
+  };
 }
 
 const router = new KoaRouter({ prefix: '/api/note' });
