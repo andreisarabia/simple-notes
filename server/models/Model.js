@@ -50,7 +50,7 @@ module.exports = class Model {
    * @param {string} sql
    * @param {?params} params
    *
-   * @returns {Promise<any>}
+   * @returns {Promise<any | any[]>}
    */
   static query(sql, params = []) {
     return db.query(sql, params);
