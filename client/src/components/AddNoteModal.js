@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 
-const AddNoteModal = ({ onSubmit }) => {
-  const [tags, setTags] = useState([
-    { id: 1, name: 'personal' },
-    { id: 2, name: 'politics' },
-  ]);
+const AddNoteModal = ({ onSubmit, tags }) => {
   const [chosenTags, setChosenTags] = useState([]);
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
@@ -13,6 +9,7 @@ const AddNoteModal = ({ onSubmit }) => {
     e.preventDefault();
     setNewTitle('');
     setNewDescription('');
+    setChosenTags([]);
     onSubmit(null);
   };
 
@@ -25,7 +22,7 @@ const AddNoteModal = ({ onSubmit }) => {
   };
 
   return (
-    <div className={'modal'}>
+    <div className='modal'>
       <h3>Add Note</h3>
 
       <form id='add-note-grid'>

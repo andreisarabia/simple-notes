@@ -1,40 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Notes from './components/Notes';
 import Tags from './components/Tags';
 import AddNoteModal from './components/AddNoteModal';
 
+import { fetchAllNotes, fetchAllTags } from './util/fetchData';
+
 import './App.css';
+
+async function fetchInitialData() {
+  const [notes, tags] = await Promise.all([fetchAllNotes(), fetchAllTags()]);
+
+  return { notes, tags };
+}
 
 const App = () => {
   const [focusedSection, setFocusedSection] = useState('notes');
   const [modalIsDisplayed, setModalIsDisplayed] = useState(false);
-  const [tags, setTags] = useState([
-    { id: 1, name: 'personal' },
-    { id: 2, name: 'politics' },
-  ]);
-  const [notes, setNotes] = useState([
-    {
-      id: 3,
-      title: 'example title',
-      description: 'example description',
-      creation_date: new Date(),
-      tags: [
-        { id: 2, name: 'first' },
-        { id: 3, name: 'example' },
-      ],
-    },
-    {
-      id: 4,
-      title: 'example title',
-      description: 'example description',
-      creation_date: new Date(),
-      tags: [
-        { id: 2, name: 'first' },
-        { id: 3, name: 'example' },
-      ],
-    },
-  ]);
+  const [tags, setTags] = useState([]);
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    fetchInitialData().then(({ notes, tags }) => {
+      setNotes(notes);
+      setTags(tags);
+    });
+  }, []);
 
   return (
     <div id='app-wrapper' className={modalIsDisplayed ? 'grayed-out' : ''}>
@@ -78,6 +69,7 @@ const App = () => {
               if (newNote) setNotes([newNote, ...notes]);
               setModalIsDisplayed(false);
             }}
+            tags={tags}
           />
         </div>
       </div>

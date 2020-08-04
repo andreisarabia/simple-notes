@@ -14,7 +14,7 @@ const Notes = ({ notes, addNote }) => {
             <span>
               <i>
                 Created:{' '}
-                {note.creation_date
+                {new Date(note.creation_time)
                   .toLocaleString()
                   .split(',')
                   .reverse()
