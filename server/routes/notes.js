@@ -2,9 +2,7 @@ const KoaRouter = require('@koa/router');
 
 const Note = require('../models/Note');
 
-const router = new KoaRouter({ prefix: '/api/note' });
-
-router.get('/info/:id', async ctx => {
+async function getNoteInfo(ctx) {
   const { id } = ctx.params;
 
   if (!id) ctx.throw('No valid note id provided', 400);
@@ -14,14 +12,24 @@ router.get('/info/:id', async ctx => {
   ctx.body = {
     note: note.props,
   };
-});
+}
 
-router.get('/all', async ctx => {
+async function getAllNotes(ctx) {
   const notes = await Note.findAll();
 
   ctx.body = {
     notes: notes.map(note => note.props),
   };
-});
+}
+
+async function createNote(ctx) {
+  const { title, description, tags } = ctx.request.body;
+}
+
+const router = new KoaRouter({ prefix: '/api/note' });
+
+router.get('/info/:id', getNoteInfo);
+router.get('/list', getAllNotes);
+router.post('/create', createNote);
 
 module.exports = router;

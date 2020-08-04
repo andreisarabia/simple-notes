@@ -52,20 +52,22 @@ module.exports = class Note extends Model {
    * @param {object} props
    * @param {string} props.title
    * @param {string} props.description
+   * @param {string[]} props.tags
    *
    * @returns {Promise<Note>}
    */
   static async createFrom(props) {
-    const [columns, values] = Model.getColumnsAndValuesFromProps(props);
+    const { tags, ...restOfProps } = props;
+    const [columns, values] = Model.getColumnsAndValuesFrom(restOfProps);
     const placeholders = Model.getPlaceholders(values.length);
 
-    const sql = `
-      INSERT INTO \`notes\`
-      (${columns.join(', ')})
+    const noteSql = `
+      INSERT INTO \`notes\` (${columns.join(', ')})
       VALUES (${placeholders})
     `;
 
-    const { insertId } = await Model.query(sql, values);
+    const { insertId } = await Model.query(noteSql, values);
+  
     const note = await this.findById(insertId);
 
     return note;

@@ -25,7 +25,7 @@ module.exports = class Model {
    *
    * @returns {[any[], any[]]}
    */
-  static getColumnsAndValuesFromProps(props) {
+  static getColumnsAndValuesFrom(props) {
     const columns = [];
     const values = [];
 
