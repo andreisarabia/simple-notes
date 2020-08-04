@@ -1,13 +1,6 @@
-const Note = require('./models/Note');
+const app = require('./app');
+const port = process.env.PORT || 3000;
 
-(async () => {
-  const res = await Note.findAll();
-  console.log(res);
-  const note = await Note.createFrom({
-    title: 'example title',
-    description: 'example text',
-  });
-
-  console.log(note);
-  console.log(await Note.findAll());
-})();
+app.listen(3000, () => {
+  console.log(`Listening on port ${port}`);
+});

@@ -1,7 +1,22 @@
 const db = require('../database');
 
+/**
+ * Provides an interface for useful methods that
+ * subclasses can utilize.
+ *
+ * @class Model
+ */
 module.exports = class Model {
   static mainTableName = '';
+
+  /**
+   * Child classes define a props object representing a row
+   * (key-value pairs corresponding to column-value).
+   * This getter returns a shallow copy of that object.
+   */
+  get data() {
+    return { ...this.props };
+  }
 
   /**
    * We use `Object.entries` in order to preserve insertion order

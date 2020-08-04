@@ -8,7 +8,7 @@ module.exports = class Note extends Model {
    * @param {number} props.id
    * @param {string} props.title
    * @param {string} props.description
-   * @param {string} props.creation_date
+   * @param {string} props.creation_time
    */
   constructor(props) {
     super();
@@ -38,7 +38,7 @@ module.exports = class Note extends Model {
   static async findAll() {
     const sql = `
       SELECT * FROM ${this.mainTableName}
-      ORDER BY creation_date DESC
+      ORDER BY creation_time DESC
     `;
 
     const rows = await Model.query(sql);
@@ -47,7 +47,7 @@ module.exports = class Note extends Model {
   }
 
   /**
-   * `id` and `creation_date` are automatically
+   * `id` and `creation_time` are automatically
    * generated when inserting data to the `notes` table
    * @param {object} props
    * @param {string} props.title
