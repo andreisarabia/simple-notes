@@ -2,8 +2,6 @@ const KoaRouter = require('@koa/router');
 
 const Note = require('../models/Note');
 
-const router = new KoaRouter({ prefix: '/api/tag' });
-
 async function getAllTags(ctx) {
   const allTags = await Note.getAllTags();
 
@@ -36,6 +34,8 @@ async function deleteTag(ctx) {
     msg: 'ok',
   };
 }
+
+const router = new KoaRouter({ prefix: '/api/tag' });
 
 router.get('/list', getAllTags);
 router.post('/create', createTag);

@@ -1,14 +1,11 @@
 #app-wrapper {
   height: 100vh;
+  overflow: auto;
 }
 
 .app {
   width: 60%;
   margin: auto;
-}
-
-.grayed-out {
-  background: #bbb;
 }
 
 input {
@@ -23,10 +20,12 @@ textarea {
 }
 
 button {
-  padding: 0.5rem;
+  padding: 0.8rem;
   background-color: inherit;
   border: 1px solid black;
   border-radius: 0.3rem;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .display-none {
@@ -39,6 +38,7 @@ button {
 
 #app-headers h2 {
   margin: 1.5rem 5rem;
+  cursor: pointer;
 }
 
 .unfocused-header {
@@ -48,6 +48,14 @@ button {
 .app-grid {
   display: grid;
   margin-left: 4rem;
+}
+
+#note-list {
+  line-height: 1.5;
+}
+
+#note-list p {
+  margin: 0;
 }
 
 .note-info {
@@ -61,6 +69,10 @@ button {
   justify-content: space-between;
 }
 
+.note-meta i {
+  opacity: 0.4;
+}
+
 .note-tags {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -71,7 +83,15 @@ button {
 .note-tags .tag-name {
   margin: 0 0.5rem;
   padding: 0.2rem;
-  background: #dfdede;
+  background-color: #dfdede;
+}
+
+.grayed-out {
+  background-color: #bbb;
+}
+
+.grayed-out .tag-name {
+  background-color: #c6c1c1;
 }
 
 #add-tag-inputs {
@@ -111,38 +131,46 @@ button {
 }
 
 .modal-center {
-  background: white;
+  background-color: white;
   width: 50%;
   margin-left: 4rem;
   margin-top: 2.5rem;
   border: 1px solid black;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
 }
 
-#add-note-grid > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 1rem;
-}
-
-#add-note-grid label {
+#add-note-form label {
   font-size: 1.3rem;
   font-weight: 600;
+}
+
+#note-grid-columns {
+  display: grid;
+  grid-template-columns: 0.5fr 1.29fr;
+}
+
+#add-note-labels {
+  display: grid;
+}
+
+#add-description-label,
+#add-tags-label {
+  margin-top: -3rem;
+}
+
+#add-note-inputs input,
+#add-note-inputs textarea,
+#add-note-inputs #tag-checkboxes {
+  margin: 0.5rem;
 }
 
 #tag-checkboxes {
   border: 1px solid gray;
   overflow: scroll;
-  height: 20vh;
-  max-height: 100%;
-  padding: 0.5rem;
-  flex: 0.7;
+  height: 25vh;
 }
 
 #tag-checkboxes > div {
-  display: flex;
-  align-items: center;
   padding: 0.5rem;
 }
 
@@ -158,6 +186,20 @@ button {
   color: #3541fdd4;
 }
 
-#add-note-grid textarea {
+#add-note-form textarea {
   resize: none;
+  max-width: 35vw;
+  padding: 0.2rem;
+}
+
+#submit-new-note {
+  display: flex;
+  justify-content: flex-end;
+  width: 85%;
+}
+
+#submit-new-note > button {
+  margin-right: 1rem;
+  padding: 0.8rem 2rem;
+  font-weight: 600;
 }

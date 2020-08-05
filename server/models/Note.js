@@ -1,5 +1,8 @@
 const Model = require('./Model');
 
+/**
+ * @class Note
+ */
 module.exports = class Note extends Model {
   static mainTableName = 'notes';
   static tagsTableName = 'tags';
