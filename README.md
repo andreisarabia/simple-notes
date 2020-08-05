@@ -20,7 +20,7 @@ In case you fail to satisfy this requirement, here is the link to install: [http
 
 ### Install the correct packages
 
-Now that you have Node running, you can install the packages needed to run the app. You should run `npm run bootstrap:db` in your CLI to install all packages. This will first run `npm i` in the root directory, then `npm i` in the `client` folder.
+Now that you have Node running, you can install the packages needed to run the app. You should run `npm run bootstrap:packages` in your CLI to install all packages. This will first run `npm i` in the root directory, then `npm i` in the `client` folder.
 
 ### Have a configured MySQL Database
 
