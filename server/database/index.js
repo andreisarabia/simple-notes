@@ -1,6 +1,12 @@
+const path = require('path');
 const mysql = require('mysql');
 
-const dbConfiguration = require('./config.json');
+const dbConfiguration = require(path.join(
+  __dirname,
+  '..',
+  '..',
+  'config.json'
+));
 
 const connection = mysql.createConnection(dbConfiguration);
 
