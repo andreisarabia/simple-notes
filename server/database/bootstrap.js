@@ -38,15 +38,21 @@ async function setupNotesToTagsTable() {
     )
   `;
 
-  return await db.query(notesToTagsSql);
+  await db.query(notesToTagsSql);
 }
 
 async function bootstrap() {
   await Promise.all([setupNotesTable(), setupTagsTable()]);
 
-  const res = await setupNotesToTagsTable();
-
-  console.log(res);
+  await setupNotesToTagsTable();
 }
 
-bootstrap().catch(console.log);
+bootstrap()
+  .then(() => {
+    console.log('Done creating tables.');
+    process.exit(0);
+  })
+  .catch(err => {
+    console.error('Something went wrong while prepping the database: ', err);
+    process.exit(1);
+  });

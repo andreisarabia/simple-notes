@@ -1,5 +1,6 @@
 {
   "name": "simple-notes",
+  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "server/index.js",
@@ -25,5 +26,8 @@
   "devDependencies": {
     "cross-env": "^7.0.2",
     "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": ">= 12.0.0"
   }
 }
