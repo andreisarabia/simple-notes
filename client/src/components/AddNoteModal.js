@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 
-const AddNoteModal = ({ onSubmit }) => {
-  const [tags, setTags] = useState([
-    { id: 1, name: 'personal' },
-    { id: 2, name: 'politics' },
-  ]);
+const AddNoteModal = ({ onNewNote, tags }) => {
   const [chosenTags, setChosenTags] = useState([]);
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
 
-  const handleCancel = e => {
-    e.preventDefault();
+  const reset = () => {
     setNewTitle('');
     setNewDescription('');
-    onSubmit(null);
+    setChosenTags([]);
+  };
+
+  const handleCancel = async e => {
+    e.preventDefault();
+    reset();
+    onNewNote(null);
   };
 
   const handleChosenTag = (e, tag) => {
@@ -24,8 +25,26 @@ const AddNoteModal = ({ onSubmit }) => {
     }
   };
 
+  const submitNewNote = async e => {
+    e.preventDefault();
+
+    const title = newTitle.trim();
+    const description = newDescription.trim();
+    const tags = chosenTags.map(tag => tag.id);
+
+    const response = await fetch('http://localhost:3001/api/note/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, description, tags }),
+    });
+
+    const { note } = await response.json();
+
+    onNewNote(note);
+  };
+
   return (
-    <div className={'modal'}>
+    <div className='modal'>
       <h3>Add Note</h3>
 
       <form id='add-note-grid'>
@@ -36,7 +55,7 @@ const AddNoteModal = ({ onSubmit }) => {
             id='new-title-input'
             type='text'
             value={newTitle}
-            onChange={e => setNewTitle(e.target.value.trim())}
+            onChange={e => setNewTitle(e.target.value)}
             required
           />
         </div>
@@ -49,7 +68,7 @@ const AddNoteModal = ({ onSubmit }) => {
             rows='5'
             cols='40'
             value={newDescription}
-            onChange={e => setNewDescription(e.target.value.trim())}
+            onChange={e => setNewDescription(e.target.value)}
             required
           ></textarea>
         </div>
@@ -58,26 +77,28 @@ const AddNoteModal = ({ onSubmit }) => {
           <label>Tags</label>
 
           <div id='tag-checkboxes'>
-            {tags.map(tag => (
-              <div key={tag.id}>
-                <input
-                  key={tag.id}
-                  type='checkbox'
-                  name={tag.name}
-                  id={tag.name}
-                  defaultChecked={false}
-                  onChange={e => handleChosenTag(e, tag)}
-                />
+            {tags.length > 0 ? (
+              tags.map(tag => (
+                <div key={tag.id}>
+                  <input
+                    type='checkbox'
+                    name={tag.name}
+                    id={tag.name}
+                    onChange={e => handleChosenTag(e, tag)}
+                  />
 
-                <label htmlFor={tag.name}>{tag.name}</label>
-              </div>
-            ))}
+                  <label htmlFor={tag.name}>{tag.name}</label>
+                </div>
+              ))
+            ) : (
+              <i>No tags added yet...</i>
+            )}
           </div>
         </div>
 
         <div id='submit-new-note'>
           <button onClick={handleCancel}>Cancel</button>
-          <button>Add</button>
+          <button onClick={submitNewNote}>Add</button>
         </div>
       </form>
     </div>

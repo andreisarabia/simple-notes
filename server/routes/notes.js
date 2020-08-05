@@ -5,7 +5,7 @@ const Note = require('../models/Note');
 async function getNoteInfo(ctx) {
   const { id } = ctx.params;
 
-  if (!id) ctx.throw('No valid note id provided', 400);
+  if (!id) ctx.throw(400, 'No valid note id provided');
 
   const note = await Note.findById(id);
 

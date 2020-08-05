@@ -66,6 +66,8 @@ module.exports = class Note extends Model {
 
     const rows = await Model.query(sql);
 
+    if (rows.length === 0) return [];
+
     const allTags = await this.findAllNoteTags(rows.map(row => row.id));
 
     return rows.map(row => {
@@ -177,6 +179,25 @@ module.exports = class Note extends Model {
     const note = await this.findById(insertId);
 
     return note;
+  }
+
+  /**
+   * @param {string} name
+   *
+   * @returns {Promise<{id: number; name: string;}>}
+   */
+  static async createTag(name) {
+    const insertTagSql = `
+      INSERT INTO ${this.tagsTableName} (name)
+      VALUES (?)
+    `;
+
+    const { insertId } = await Model.query(insertTagSql, [name]);
+
+    return {
+      id: insertId,
+      name,
+    };
   }
 
   /**

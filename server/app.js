@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const koaBodyParser = require('koa-bodyparser');
 
+const headerMiddleware = require('./middleware/headers');
 const notesRouter = require('./routes/notes');
 const tagsRouter = require('./routes/tags');
 
@@ -9,16 +10,7 @@ const allRouters = [notesRouter, tagsRouter];
 const app = new Koa();
 
 app.use(koaBodyParser());
-
-app.use(async (ctx, next) => {
-  ctx.set({
-    'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'deny',
-    'X-XSS-Protection': '1; mode=block',
-  });
-
-  await next();
-});
+app.use(headerMiddleware(process.env.NODE_ENV === 'production'));
 
 allRouters.forEach(router => {
   app.use(router.routes());
