@@ -6,7 +6,7 @@ const Tags = ({ tags, onAddTag, onDeleteTag }) => {
   const handleSubmitTag = async event => {
     event.preventDefault();
 
-    const response = await fetch('http://localhost:3001/api/tag/create', {
+    const response = await fetch('/api/tag/create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tagName: newTag.trim() }),
@@ -20,7 +20,9 @@ const Tags = ({ tags, onAddTag, onDeleteTag }) => {
   };
 
   const deleteTag = async id => {
-    await fetch(`http://localhost:3001/api/tag/${id}`, { method: 'DELETE' });
+    await fetch(`/api/tag/${id}`, {
+      method: 'DELETE',
+    });
 
     onDeleteTag(id);
   };

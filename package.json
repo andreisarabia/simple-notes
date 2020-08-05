@@ -7,7 +7,10 @@
     "bootstrap:packages": "cross-env npm i && cd client && npm i",
     "bootstrap:db": "node server/database/bootstrap.js",
     "dev:server": "node_modules/.bin/nodemon server/index.js",
-    "dev:react": "cd client && npm run start"
+    "dev:react": "cd client && npm run start",
+    "build": "cd client && npm run build",
+    "production": "cross-env NODE_ENV=production node server/index.js",
+    "bp": "cross-env npm run build && npm run production"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +19,7 @@
     "@koa/router": "^9.3.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
+    "koa-static": "^5.0.0",
     "mysql": "^2.18.1"
   },
   "devDependencies": {

@@ -32,7 +32,7 @@ const AddNoteModal = ({ onNewNote, tags }) => {
     const description = newDescription.trim();
     const tags = chosenTags.map(tag => tag.id);
 
-    const response = await fetch('http://localhost:3001/api/note/create', {
+    const response = await fetch('/api/note/create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, description, tags }),
