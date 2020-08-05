@@ -46,7 +46,6 @@ button {
 }
 
 .app-grid {
-  display: grid;
   margin-left: 4rem;
 }
 
@@ -56,6 +55,8 @@ button {
 
 #note-list p {
   margin: 0;
+  width: inherit;
+  overflow-wrap: anywhere;
 }
 
 .note-info {
@@ -81,7 +82,10 @@ button {
 }
 
 .note-tags .tag-name {
-  margin: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0.5rem;
   padding: 0.2rem;
   background-color: #dfdede;
 }
