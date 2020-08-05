@@ -36,6 +36,17 @@ const App = () => {
     setModalIsDisplayed(false);
   };
 
+  const handleDeleteTag = tagId => {
+    setTags(tags.filter(tag => tag.id !== tagId));
+
+    setNotes(
+      notes.map(note => ({
+        ...note,
+        tags: note.tags.filter(tag => tag.id !== tagId),
+      }))
+    );
+  };
+
   useEffect(() => {
     fetchInitialData().then(({ notes, tags }) => {
       setNotes(notes);
@@ -77,16 +88,20 @@ const App = () => {
           <Tags
             tags={tags}
             onAddTag={tag => setTags([tag, ...tags])}
-            onDeleteTag={tagId => setTags(tags.filter(tag => tag.id !== tagId))}
+            onDeleteTag={handleDeleteTag}
           />
         </section>
       </div>
 
-      <div className='modal-wrapper'>
-        <div className={modalClassName}>
-          <AddNoteModal onSubmit={handleModalAction} tags={tags} />
+      {modalIsDisplayed ? (
+        <div className='modal-wrapper'>
+          <div className={modalClassName}>
+            <AddNoteModal onNewNote={handleModalAction} tags={tags} />
+          </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -66,6 +66,8 @@ module.exports = class Note extends Model {
 
     const rows = await Model.query(sql);
 
+    if (rows.length === 0) return [];
+
     const allTags = await this.findAllNoteTags(rows.map(row => row.id));
 
     return rows.map(row => {
