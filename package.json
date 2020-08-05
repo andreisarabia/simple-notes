@@ -5,9 +5,9 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "bootstrap:packages": "cross-env npm i && cd client && npm i",
-    "bootstrap:db": "node server/database/bootstrap.js",
-    "dev:server": "node_modules/.bin/nodemon server/index.js",
+    "bootstrap:packages": "npm i && cd client && npm i",
+    "bootstrap:db": "cross-env node server/database/bootstrap.js",
+    "dev:server": "cross-env node_modules/.bin/nodemon server/index.js",
     "dev:react": "cd client && npm run start",
     "build": "cd client && npm run build",
     "production": "cross-env NODE_ENV=production node server/index.js",
