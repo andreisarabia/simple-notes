@@ -12,13 +12,13 @@ In case you fail to satisfy this requirement, here is the link to install: [http
 
 ## Install the correct packages
 
-Now that you have Node running, you can install the packages needed to run the app. You can run `npm run bootstrap:db` on the CLI to install all packages. This will first run `npm i` in the root directory, then `npm i` in the `client` folder.
+Now that you have Node running, you can install the packages needed to run the app. You should run `npm run bootstrap:db` in your CLI to install all packages. This will first run `npm i` in the root directory, then `npm i` in the `client` folder.
 
 ## Have a configured MySQL Database
 
-The machine running this app should have access to a MySQL database. Please create a file called `config.json` in the root directory, as that is where the app expects the configuration to be. The bare minimum it expects is a `host`, `user`, `password`, and the name of the `database` to connect to. For more possible options, please consult the MySQL Node.js docs here: [https://github.com/mysqljs/mysql#connection-options](https://github.com/mysqljs/mysql#connection-options).
+The machine running this app should have access to a (running) MySQL database. Please create a file called `config.json` in the root directory, as that is where the app expects the configuration to be. The bare minimum the file expects is a `host`, `user`, `password`, and the name of the `database` to connect to. For more possible options, please consult the MySQL Node.js docs here: [https://github.com/mysqljs/mysql#connection-options](https://github.com/mysqljs/mysql#connection-options).
 
-The **very** first time you run this app, you should first run `npm run bootstrap:db`. This will run the script (found [here](https://github.com/andreisarabia/simple-notes/blob/master/server/database/bootstrap.js)) to create the tables in the database specified in the aforementioned `config.json`.
+The **very** first time you run this app, you should run `npm run bootstrap:db`. This will run the script (found [here](https://github.com/andreisarabia/simple-notes/blob/master/server/database/bootstrap.js)) to create the tables in the database specified in the aforementioned `config.json`.
 
 ## And finally... running the app
 
