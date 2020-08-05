@@ -19,25 +19,6 @@ module.exports = class Model {
   }
 
   /**
-   * We use `Object.entries` in order to preserve insertion order
-   * (i.e. associating a key with its value consistently)
-   * @param {object} props
-   *
-   * @returns {[any[], any[]]}
-   */
-  static getColumnsAndValuesFrom(props) {
-    const columns = [];
-    const values = [];
-
-    Object.entries(props).forEach(([key, value]) => {
-      columns.push(key);
-      values.push(value);
-    });
-
-    return [columns, values];
-  }
-
-  /**
    * @param {number} numberOfPlaceholders
    *
    * @returns {string} something like ?, ?, ?,...

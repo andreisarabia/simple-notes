@@ -29,6 +29,13 @@ const AddNoteModal = ({ onNewNote, tags }) => {
     e.preventDefault();
 
     const title = newTitle.trim();
+
+    if (!title) {
+      reset();
+      onNewNote(null);
+      return;
+    }
+
     const description = newDescription.trim();
     const tags = chosenTags.map(tag => tag.id);
 
@@ -47,52 +54,54 @@ const AddNoteModal = ({ onNewNote, tags }) => {
     <div className='modal'>
       <h3>Add Note</h3>
 
-      <form id='add-note-grid'>
-        <div id='add-title'>
-          <label htmlFor='new-title-input'>Title</label>
+      <form id='add-note-form'>
+        <div id='note-grid-columns'>
+          <div id='add-note-labels'>
+            <label htmlFor='new-title-input'>Title</label>
 
-          <input
-            id='new-title-input'
-            type='text'
-            value={newTitle}
-            onChange={e => setNewTitle(e.target.value)}
-            required
-          />
-        </div>
+            <label id='add-description-label' htmlFor='new-description-input'>
+              Description
+            </label>
 
-        <div id='add-description'>
-          <label htmlFor='new-description-input'>Description</label>
+            <label id='add-tags-label'>Tags</label>
+          </div>
 
-          <textarea
-            id='new-description-input'
-            rows='5'
-            cols='40'
-            value={newDescription}
-            onChange={e => setNewDescription(e.target.value)}
-            required
-          ></textarea>
-        </div>
+          <div id='add-note-inputs'>
+            <input
+              id='new-title-input'
+              type='text'
+              value={newTitle}
+              onChange={e => setNewTitle(e.target.value)}
+              required
+            />
 
-        <div id='add-tags'>
-          <label>Tags</label>
+            <textarea
+              id='new-description-input'
+              rows='7'
+              cols='40'
+              value={newDescription}
+              onChange={e => setNewDescription(e.target.value)}
+              required
+            ></textarea>
 
-          <div id='tag-checkboxes'>
-            {tags.length > 0 ? (
-              tags.map(tag => (
-                <div key={tag.id}>
-                  <input
-                    type='checkbox'
-                    name={tag.name}
-                    id={tag.name}
-                    onChange={e => handleChosenTag(e, tag)}
-                  />
+            <div id='tag-checkboxes'>
+              {tags.length > 0 ? (
+                tags.map(tag => (
+                  <div key={tag.id}>
+                    <input
+                      type='checkbox'
+                      name={tag.name}
+                      id={tag.name}
+                      onChange={e => handleChosenTag(e, tag)}
+                    />
 
-                  <label htmlFor={tag.name}>{tag.name}</label>
-                </div>
-              ))
-            ) : (
-              <i>No tags added yet...</i>
-            )}
+                    <label htmlFor={tag.name}>{tag.name}</label>
+                  </div>
+                ))
+              ) : (
+                <i>No tags added yet...</i>
+              )}
+            </div>
           </div>
         </div>
 
